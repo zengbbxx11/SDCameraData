@@ -1,173 +1,153 @@
 filters:
   and:
-  - file.ext == "md"
-  - '!file.inFolder("90_模板")'
+    - file.ext == "md"
+    - '!file.inFolder("90_模板")'
 properties:
   file.name:
     displayName: 档案
 views:
-- type: table
-  name: 国外优先规格
-  filters:
-    and:
-    - note["记录类型"] == "技术规格"
-    - note["阅读分组"] == "国外优先"
-  order:
-  - file.name
-  - note.产品编号
-  - note.技术规格
-  - note.品牌
-  - note.数据状态
-- type: table
-  name: 国外品牌配置
-  filters:
-    and:
-    - note["记录类型"] == "品牌配置"
-    - note["阅读分组"] == "国外优先"
-  order:
-  - file.name
-  - note.产品编号
-  - note.技术规格
-  - note.品牌
-  - note.数据状态
-- type: table
-  name: 国外包装清单
-  filters:
-    and:
-    - note["记录类型"] == "包装清单"
-    - note["阅读分组"] == "国外优先"
-  order:
-  - file.name
-  - note.产品编号
-  - note.技术规格
-  - note.品牌
-  - note.数据状态
-- type: table
-  name: 国内参考资料
-  filters:
-    and:
-    - note["阅读分组"] == "国内参考"
-  order:
-  - file.name
-  - note.记录类型
-  - note.产品编号
-- type: table
-  name: 技术规格查询
-  filters:
-    or:
-    - note["记录类型"] == "技术规格"
-  order:
-  - file.name
-  - note.产品型号
-  - note.技术规格
-  - note.记录层级
-  - note.数据状态
-  - note.更新日期
-- type: table
-  name: 品牌配置查询
-  filters:
-    or:
-    - note["记录类型"] == "品牌配置"
-  order:
-  - file.name
-  - note.产品编号
-  - note.品牌
-  - note.销售地区
-  - note.包装完整度
-  - note.更新日期
-- type: table
-  name: 实际销售配置
-  filters:
-    or:
-    - note["记录类型"] == "实际销售配置"
-  order:
-  - file.name
-  - note.产品编号
-  - note.技术规格编号
-  - note.商业配置编号
-  - note.更新日期
-- type: table
-  name: BOM与包装资料
-  filters:
-    or:
-    - note["记录类型"] == "生产BOM"
-    - note["记录类型"] == "包装清单"
-  order:
-  - file.name
-  - note.产品编号
-  - note.品牌
-  - note.物料条数
-  - note.数据状态
-  - note.更新日期
-- type: table
-  name: 共用零部件
-  filters:
-    or:
-    - note["记录类型"] == "零部件"
-  order:
-  - file.name
-  - note.物料分类
-  - note.物料名称
-  - note.零件编号
-  - note.关联产品编号
-  - note.数据状态
-  groupBy:
-    property: note.物料分类
-    direction: ASC
-- type: table
-  name: 报价查询
-  filters:
-    or:
-    - note["记录类型"] == "报价"
-  order:
-  - file.name
-  - note.报价日期
-  - note.客户或项目
-  - note.价格类型
-  - note.币种
-  - note.更新日期
-- type: table
-  name: 认证资料
-  filters:
-    or:
-    - note["记录类型"] == "认证"
-  order:
-  - file.name
-  - note.证书类型
-  - note.认证对象
-  - note.数据状态
-  - note.更新日期
-- type: table
-  name: 待核实事项
-  filters:
-    or:
-    - note["记录类型"] == "待核实事项"
-  order:
-  - file.name
-  - note.产品编号
-  - note.未解决问题数
-  - note.处理状态
-  - note.更新日期
-- type: table
-  name: 来源记录
-  filters:
-    or:
-    - note["记录类型"] == "来源记录"
-  order:
-  - file.name
-  - note.关联产品编号
-  - note.资料角色
-  - note.数据状态
-  - note.更新日期
-- type: table
-  name: 最近更新
-  filters:
-    or:
-    - note["记录类型"] == "变更记录"
-  order:
-  - file.name
-  - note.更新日期
-  - note.关联产品编号
-  sort:
-  - property: note.更新日期
-    direction: DESC
+  - type: table
+    name: 国外优先规格
+    filters:
+      and:
+        - note["记录类型"] == "技术规格"
+        - note["阅读分组"] == "国外优先"
+    order:
+      - file.name
+      - 技术规格
+      - 品牌
+  - type: table
+    name: 国外品牌配置
+    filters:
+      and:
+        - note["记录类型"] == "品牌配置"
+        - note["阅读分组"] == "国外优先"
+    order:
+      - file.name
+      - 品牌
+      - 销售地区
+  - type: table
+    name: 国外包装清单
+    filters:
+      and:
+        - note["记录类型"] == "包装清单"
+        - note["阅读分组"] == "国外优先"
+    order:
+      - file.name
+      - 品牌
+  - type: table
+    name: 国内参考资料
+    filters:
+      and:
+        - note["阅读分组"] == "国内参考"
+    order:
+      - file.name
+      - 记录类型
+  - type: table
+    name: 技术规格查询
+    filters:
+      and:
+        - note["记录类型"] == "技术规格"
+        - note["记录层级"] != "候选"
+    order:
+      - file.name
+      - 产品型号
+      - 技术规格
+      - 记录层级
+      - 更新日期
+  - type: table
+    name: 品牌配置查询
+    filters:
+      or:
+        - note["记录类型"] == "品牌配置"
+    order:
+      - file.name
+      - 品牌
+      - 销售地区
+      - 包装完整度
+      - 更新日期
+  - type: table
+    name: 实际销售配置
+    filters:
+      or:
+        - note["记录类型"] == "实际销售配置"
+    order:
+      - file.name
+      - 更新日期
+  - type: table
+    name: BOM与包装资料
+    filters:
+      or:
+        - note["记录类型"] == "生产BOM"
+        - note["记录类型"] == "包装清单"
+    order:
+      - file.name
+      - 品牌
+      - 物料条数
+      - 更新日期
+  - type: table
+    name: 共用零部件
+    filters:
+      or:
+        - note["记录类型"] == "零部件"
+    groupBy:
+      property: 物料分类
+      direction: ASC
+    order:
+      - file.name
+      - 物料分类
+      - 零件编号
+  - type: table
+    name: 报价查询
+    filters:
+      or:
+        - note["记录类型"] == "报价"
+    order:
+      - file.name
+      - 报价日期
+      - 客户或项目
+      - 价格类型
+      - 币种
+      - 更新日期
+  - type: table
+    name: 认证资料
+    filters:
+      or:
+        - note["记录类型"] == "认证"
+    order:
+      - file.name
+      - 证书类型
+      - 认证对象
+      - 更新日期
+  - type: table
+    name: 待核实事项
+    filters:
+      or:
+        - note["记录类型"] == "待核实事项"
+    order:
+      - file.name
+      - 更新日期
+  - type: table
+    name: 最近更新
+    filters:
+      or:
+        - note["记录类型"] == "变更记录"
+    order:
+      - file.name
+      - 更新日期
+    sort:
+      - property: 更新日期
+        direction: DESC
+      - property: file.mtime
+        direction: DESC
+    limit: 5
+  - type: table
+    name: 候选规格
+    filters:
+      and:
+        - note["记录类型"] == "技术规格"
+        - note["记录层级"] == "候选"
+    order:
+      - file.name
+      - 技术规格
+      - 更新日期
