@@ -1,0 +1,51 @@
+filters:
+  and:
+  - file.ext == "md"
+  - file.inFolder("01_产品档案")
+  - note["记录类型"] == "产品"
+properties:
+  file.name:
+    displayName: 产品型号
+views:
+- type: cards
+  name: 产品画册
+  order:
+  - file.name
+  - note.品类
+  - note.优先阅读规格
+  - note.国外包装
+  - note.资料完整度
+- type: table
+  name: 按品类查看
+  groupBy:
+    property: note.品类
+    direction: ASC
+  order:
+  - file.name
+  - note.品类
+  - note.资料完整度
+  - note.更新日期
+- type: table
+  name: 资料完整度
+  order:
+  - file.name
+  - note.基础档案完整度
+  - note.技术参数完整度
+  - note.规格版本完整度
+  - note.BOM完整度
+  - note.包装信息完整度
+  - note.报价完整度
+  - note.认证资料完整度
+  - note.重要备注完整度
+- type: table
+  name: 资料缺失与待核实
+  filters:
+    or:
+    - note["资料完整度"] != "已完成"
+    - note["存在待核实"] == true
+  order:
+  - file.name
+  - note.资料完整度
+  - note.BOM完整度
+  - note.报价完整度
+  - note.认证资料完整度

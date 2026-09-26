@@ -1,0 +1,18 @@
+# 本机界面及恢复缓存
+.obsidian/workspace*.json
+.obsidian/cache/
+.trash/
+.DS_Store
+Thumbs.db
+~$*
+# 临时分析不是正式数据库
+.临时分析/
+*.tmp
+# 原始大文件不在Vault复制；下列规则不是保密边界
+*.xlsx
+*.xls
+*.docx
+*.pdf
+*.zip
+*.rar
+*.7z
