@@ -2,9 +2,13 @@ filters:
   and:
     - file.ext == "md"
     - '!file.inFolder("90_模板")'
+formulas:
+  物料出现产品: 'list(note["关联产品编号"]).filter(value != null).map(link(value.toString().replace(/^PRD-/, "")))'
 properties:
   file.name:
     displayName: 档案
+  formula.物料出现产品:
+    displayName: 包装出现型号
 views:
   - type: table
     name: 国外优先规格
@@ -12,6 +16,7 @@ views:
       and:
         - note["记录类型"] == "技术规格"
         - note["阅读分组"] == "国外优先"
+        - note["记录层级"] != "候选"
     order:
       - file.name
       - 技术规格
@@ -95,8 +100,7 @@ views:
       direction: ASC
     order:
       - file.name
-      - 物料分类
-      - 零件编号
+      - formula.物料出现产品
   - type: table
     name: 报价查询
     filters:
@@ -126,7 +130,14 @@ views:
         - note["记录类型"] == "待核实事项"
     order:
       - file.name
+      - 产品型号
+      - 未解决问题数
       - 更新日期
+    sort:
+      - property: 未解决问题数
+        direction: DESC
+      - property: file.name
+        direction: ASC
   - type: table
     name: 最近更新
     filters:
@@ -151,3 +162,20 @@ views:
       - file.name
       - 技术规格
       - 更新日期
+
+  - type: table
+    name: 包装清单
+    filters:
+      and:
+        - note["记录类型"] == "包装清单"
+    groupBy:
+      property: 产品型号
+      direction: ASC
+    order:
+      - file.name
+      - 品牌
+      - 适用规格
+      - 更新日期
+    sort:
+      - property: file.name
+        direction: ASC

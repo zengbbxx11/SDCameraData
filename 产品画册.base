@@ -3,7 +3,11 @@ filters:
     - file.ext == "md"
     - file.inFolder("01_产品档案")
     - note["记录类型"] == "产品"
+formulas:
+  产品配件包装: 'link(file.path + "#配件与包装参数", "查看配件与箱规")'
 properties:
+  formula.产品配件包装:
+    displayName: 配件与包装参数
   file.name:
     displayName: 产品型号
   note.优先阅读规格:
@@ -48,6 +52,8 @@ views:
       - 阅读分组
   - type: cards
     name: 产品画册
+    image: note.产品图片
+    imageFit: contain
     order:
       - file.name
       - 品类
@@ -100,3 +106,14 @@ views:
       - 报价完整度
       - 认证资料完整度
       - 重要备注完整度
+
+  - type: table
+    name: 配件与包装
+    order:
+      - file.name
+      - 品类
+      - formula.产品配件包装
+      - 国外包装
+    sort:
+      - property: file.name
+        direction: ASC

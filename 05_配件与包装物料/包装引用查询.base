@@ -1,0 +1,22 @@
+filters:
+  and:
+    - file.ext == "md"
+    - file.inFolder("06_BOM与包装")
+    - or:
+        - note["记录类型"] == "包装清单"
+        - note["记录类型"] == "包装共用物料"
+    - file.hasLink(this.file)
+properties:
+  file.name:
+    displayName: 包装记录
+  note.品牌:
+    displayName: 品牌配置
+views:
+  - type: table
+    name: 当前物料包装
+    order:
+      - file.name
+      - 品牌
+    sort:
+      - property: file.name
+        direction: ASC

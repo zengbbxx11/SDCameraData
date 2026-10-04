@@ -1,0 +1,102 @@
+filters:
+  and:
+    - file.ext == "md"
+    - file.inFolder("05_配件与包装物料")
+    - note["记录类型"] == "零部件"
+formulas:
+  出现产品: 'list(note["关联产品编号"]).map(link(value.replace(/^PRD-/, "")))'
+properties:
+  file.name:
+    displayName: 物料档案
+  note.物料分类:
+    displayName: 具体类别
+  formula.出现产品:
+    displayName: 包装出现型号
+  note.零件编号:
+    displayName: 料号
+views:
+  - type: table
+    name: 供电与连接
+    filters:
+      and:
+        - note["用途分组"] == "供电与连接"
+    groupBy:
+      property: 物料分类
+      direction: ASC
+    order:
+      - file.name
+      - formula.出现产品
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: 随箱配件
+    filters:
+      and:
+        - note["用途分组"] == "随箱配件"
+    groupBy:
+      property: 物料分类
+      direction: ASC
+    order:
+      - file.name
+      - formula.出现产品
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: 包装与标识
+    filters:
+      and:
+        - note["用途分组"] == "包装与标识"
+    groupBy:
+      property: 物料分类
+      direction: ASC
+    order:
+      - file.name
+      - formula.出现产品
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: 全部物料
+    groupBy:
+      property: 用途分组
+      direction: ASC
+    order:
+      - file.name
+      - 物料分类
+      - formula.出现产品
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: 多型号包装引用
+    filters:
+      and:
+        - list(note["关联产品编号"]).length > 1
+    order:
+      - file.name
+      - 物料分类
+      - formula.出现产品
+  - type: table
+    name: 需要核对
+    filters:
+      and:
+        - note["存在待核实"] == true
+    order:
+      - file.name
+      - formula.出现产品
+  - type: table
+    name: 当前产品物料
+    filters:
+      and:
+        - list(note["关联产品编号"]).contains(this["编号"])
+    groupBy:
+      property: 用途分组
+      direction: ASC
+    order:
+      - file.name
+      - 物料分类
+    sort:
+      - property: file.name
+        direction: ASC

@@ -40,3 +40,20 @@
   .产品资料, .资料首页 { --table-cell-padding: 6px 8px; }
   .markdown-preview-view.产品资料 td:first-child { min-width: 5em; }
 }
+/* 比较页复用规格速览；窄窗口和关闭样式时按顺序阅读。 */
+.markdown-preview-view.产品比较 .callout[data-callout="compare"] > .callout-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  gap: 16px;
+}
+.markdown-preview-view.产品比较 .callout[data-callout="compare"] > .callout-content > .callout {
+  min-width: 0;
+  margin: 0;
+}
+/* 原参数表的透明外观线稿用白底显示；不改动附件本身。 */
+.markdown-preview-view.产品资料 .image-embed img {
+  background: #fff;
+}
+.markdown-preview-view:is(.产品资料, .资料首页) .bases-cards-cover {
+  background: #fff;
+}
