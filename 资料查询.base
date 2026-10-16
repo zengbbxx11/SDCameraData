@@ -179,3 +179,26 @@ views:
     sort:
       - property: file.name
         direction: ASC
+
+  - type: table
+    name: 方案与成像查询
+    filters:
+      and:
+        - note["记录类型"] == "方案汇总"
+    order:
+      - file.name
+      - 方案条目数
+      - 资料月份
+      - 更新日期
+
+  - type: table
+    name: 方案分类浏览
+    filters:
+      and:
+        - note["记录类型"] == "方案导航"
+    order:
+      - file.name
+      - 方案条目数
+    sort:
+      - property: file.name
+        direction: ASC
